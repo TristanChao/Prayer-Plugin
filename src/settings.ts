@@ -1,20 +1,36 @@
 import { App, PluginSettingTab, Setting } from 'obsidian';
 import MyPlugin from './main';
 
-export interface MyPluginSettings {
+export interface PrayerSidebarSettings {
 	mySetting: string;
 }
 
-export const DEFAULT_SETTINGS: MyPluginSettings = {
+export const DEFAULT_SETTINGS: PrayerSidebarSettings = {
 	mySetting: 'default',
 };
 
-export class SampleSettingTab extends PluginSettingTab {
+export class PrayerSidebarSettingTab extends PluginSettingTab {
 	plugin: MyPlugin;
 
 	constructor(app: App, plugin: MyPlugin) {
 		super(app, plugin);
 		this.plugin = plugin;
+	}
+
+	getSettingDefinitions() {
+		return [
+			{
+				name: 'File Path',
+				desc: 'Put the path from the vault folder of the file that contains your prayer requests.',
+				control: {
+					type: 'text',
+					key: 'cacheKey',
+					placeholder: 'Prayer Requests',
+					// validate: (value: string) =>
+					// 	/^[a-z0-9]*$/i.test(value.trim()) ? undefined : 'Use letters and digits only.',
+				},
+			},
+		];
 	}
 
 	display(): void {
